@@ -1,53 +1,29 @@
-function removeDuplicateUsingFilter(inputArrary){
-  let noDuplicates = inputArrary.filter(function(elem, index, self) {
-    return index == self.indexOf(elem);
-  });
-  return noDuplicates
-}
-
-
 $(document).ready(function() {
 
-
-  $("#workOrder").submit(function(event) {
+  $("button").submit(function(event) {
     event.preventDefault();
 
-      var inputTextArray = [];
-      var inputTemp = $("input#inputText").val();
-      inputTextArray = inputTemp.split(" ");
+    var countTo = $("#input1").val();
+    var countBy = $("#input2").val();
 
-      var noDuplicates = removeDuplicateUsingFilter(inputTextArray);
+    if (isNan(countTo) || isNan(countBy) || countTo === undefined || countBy === undefined) {
+      alert("Enter a number in both fields.")
+    } else {
+      $(".output").append("Count to: " + countTo);
+      $(".output").append("Count by:" + countBy);
 
-
-
-      var original;
-      noDuplicates.forEach(function(uniqueWord) {
-        var count = 0;
-        inputTextArray.forEach(function(duplicate) {
-          if (uniqueWord === duplicate) {
-            count++;
-          }
-
-
-        });
+      var loops = Math.floor(countTo / countBy);
+      var runningCount = 0;
+      for (i = 0; i < loops; i++) {
+        runningCount += countBy;
+        $(".output").append(runningCount + ", ");
+      };
 
 
-        $(".output ul").append("<li>Word: " + uniqueWord + " Count: " + count + "</li>")
 
-      });
+    }
 
+  });
 
   });
 });
-
-
-
-
-
-// var noDuplicates = inputTextArray.map(function(word) {
-//   if (word === "this") {
-//     return word;
-//   }
-// });
-//
-// alert(noDuplicates);
